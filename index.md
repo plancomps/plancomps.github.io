@@ -1,7 +1,6 @@
 ---
 layout: default
 title: PLanCompS
-nav_exclude: true
 ---
 
 PLanCompS: Programming Language Components and Specifications
@@ -13,4 +12,4 @@ PLanCompS is an open international collaboration, continuing from an
 The main activity of PLanCompS is the development of the [CBS] framework,
 meta-language, and tool support, together with examples of language specification using CBS.
 
-[CBS]: CBS-beta/index.md
+[CBS]: https://plancomps.github.io/CBS-beta/ "Beta-release of CBS"
