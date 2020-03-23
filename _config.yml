@@ -1,10 +1,10 @@
 remote_theme: pmarsceill/just-the-docs
 title: PLanCompS
-description: Beta-release of the CBS framework
+description: Organization home page
 repository: "plancomps/plancomps.github.io"
 # Aux links for the upper right navigation
 aux_links:
-  "CBS-beta on GitHub":
+  "PLanCompS on GitHub":
     - "//github.com/plancomps/plancomps.github.io"
 logo: "/assets/images/PLanCompS-150.png"
 plugins:
