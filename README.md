@@ -10,7 +10,7 @@ meta-language, and tool support, together with examples of language specificatio
 
 [PLanCompS]: https://plancomps.github.io
 
-[EPSRC-funded research project (2011-16)]: docs/2011-2016/
+[EPSRC-funded research project (2011-16)]: https://plancomps.github.io/docs/2011-2016/
 
 [CBS]: https://plancomps.github.io/CBS-beta
 
