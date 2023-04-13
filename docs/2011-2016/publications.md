@@ -45,5 +45,3 @@ The following previous publications established the underpinnings for the PLanCo
 - *[Action Semantics](http://www.cambridge.org/gb/knowledge/isbn/item1157781/?site_locale=en_GB).* Mosses PD.  Cambridge Tracts in TCS, vol. 26. CUP, 1992.
 - *SIS: Semantics implementation system.* Mosses PD.  TR MD-30, Dept Comput Sci, Univ Aarhus, 1979.
 - *Mathematical Semantics and Compiler Generation.* Mosses PD.  DPhil dissertation, Univ Oxford, 1975.
-
-**[Reports](https://plancomps.csle.cs.rhul.ac.uk/reports/)**
