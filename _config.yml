@@ -1,15 +1,19 @@
-remote_theme: pmarsceill/just-the-docs
 title: PLanCompS
-description: Organization home page
-repository: "plancomps/plancomps.github.io"
-# Aux links for the upper right navigation
+description: >-
+  PLanCompS: Programming Language Components and Specifications.
+  Organization home page
+repository: plancomps/plancomps.github.io
+logo: /assets/images/PLanCompS-150.png
+favicon_ico: /assets/images/favicon.ico
 aux_links:
-  "PLanCompS on GitHub":
-    - "//github.com/plancomps/plancomps.github.io"
-logo: "/assets/images/PLanCompS-150.png"
+  PLanCompS on GitHub:
+    - https://github.com/plancomps/plancomps.github.io
+nav_external_links:
+  - title: CBS-beta
+    url: https://plancomps.github.io/CBS-beta
+ 
+remote_theme: just-the-docs/just-the-docs
 plugins:
-    - jekyll-seo-tag
-compress_html:
-  blanklines: true
-# Set the search token separator
-search_tokenizer_separator: /[\s/]+/
+  - jekyll-remote-theme
+  - jekyll-default-layout
+  - rake
