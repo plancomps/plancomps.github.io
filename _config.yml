@@ -17,3 +17,8 @@ plugins:
   - jekyll-remote-theme
   - jekyll-default-layout
   - rake
+
+callouts:
+  note:
+    title: Note
+    color: purple

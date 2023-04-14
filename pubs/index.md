@@ -1,6 +1,5 @@
 ---
 title: Publications
-parent: PLanCompS 2011–2016
 ---
 
 # Publications

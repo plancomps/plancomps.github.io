@@ -8,6 +8,11 @@ title: Home
 PLanCompS is an open international collaboration, continuing from an
 [EPSRC-funded research project (2011-16)].
 
+{: .note }
+The PLanCompS website was originally at `http://plancomps.org`.
+Its contents have been moved to the present site,
+and the project is no longer using that URL.
+
 The main activity of PLanCompS is the development of the [CBS] framework,
 meta-language, and tool support, together with examples of language specification using CBS.
 [New participants] are welcome!

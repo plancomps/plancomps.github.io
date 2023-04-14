@@ -13,7 +13,7 @@ The main contributor of this work is [Prof Cliff Jones](http://homepages.cs.ncl.
 
 The current (evolving) contributions to the “library of semantics” being developed in the PLanCompS project include those aspects of “VDM” relating to language description that were firmed up in the IBM Laboratory in Vienna around a project to build a complier from the PL/I language to the “FS” machine (that got cancelled).
 
-- One direct output was “published” as the Technical Report on the [PL/I description](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/TR25139/)which I’ve had scanned; ([full citation](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/#BBHJL74)).
+- One direct output was “published” as the Technical Report on the [PL/I description](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/TR25139/) which I’ve had scanned; ([full citation](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/#BBHJL74)).
 - Another report described the [overall method](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/TR25.145.pdf) ([full citation](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/#Jones76a)).
 - An older report investigated different [implementation techniques for reference to non-local variables](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/TR25.104.pdf) (Warning: this uses VDL notation!) ([full citation](http://homepages.cs.ncl.ac.uk/cliff.jones/publications/#HenhaplJones70a)).
 
