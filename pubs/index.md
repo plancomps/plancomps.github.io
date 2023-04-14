@@ -25,7 +25,7 @@ title: Publications
 - [An agile approach to language modelling and development.](http://dx.doi.org/10.1007/s11334-009-0111-6) Johnstone A, Mosses PD, Scott E. Innov Syst Softw Eng 6(1-2): 145–153, 2010.
 - [Translator Generation Using ART](http://dl.acm.org/citation.cfm?id=1964599), Adrian Johnstone, Elizabeth Scott. SLE 2010: 306–315.
 
-**Related Publications**
+**Previous Publications**
 
 The following previous publications established the underpinnings for the PLanCompS project. Links are to DOIs were possible, and publishers otherwise.
 
