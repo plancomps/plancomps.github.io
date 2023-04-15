@@ -22,3 +22,8 @@ callouts:
   note:
     title: Note
     color: purple
+
+defaults:
+  -
+    scope: {path: "pubs/*"}
+    values: {nav_exclude: true}
