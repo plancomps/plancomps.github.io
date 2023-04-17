@@ -17,6 +17,8 @@ plugins:
   - jekyll-remote-theme
   - jekyll-default-layout
   - rake
+compress_html:
+  blanklines: true
 
 callouts:
   note:
