@@ -21,9 +21,9 @@ The archive below accompanies the paper:
 - Tool Support for Component-Based Semantics.\\
   L. Thomas van Binsbergen, Neil Sculthorpe, Peter D. Mosses.\\
   In MODULARITY Companion’16, ACM, 2016.\\
-  http://dx.doi.org/10.1145/2892664.2893464
+  <https://dx.doi.org/10.1145/2892664.2893464>
 
-[CBS-IMP.tar.gz](https://plancomps.csle.cs.rhul.ac.uk/files/2016/03/CBS-IMP.tar.gz) (updated 11/03/2016)
+[CBS-IMP.tar.gz](/files/2016/03/CBS-IMP.tar.gz) (updated 11/03/2016)
 
 The archive includes:
 

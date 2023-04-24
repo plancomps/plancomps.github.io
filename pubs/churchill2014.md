@@ -18,7 +18,7 @@ Note: A [revised and extended version](https://plancomps.csle.cs.rhul.ac.uk/taos
 
 ## Accompanying material
 
-- **[Authors’ version of the paper](https://plancomps.csle.cs.rhul.ac.uk/files/2014/04/Mod14CMT.pdf)**
-- **[Presentation](https://plancomps.csle.cs.rhul.ac.uk/files/2013/10/modularity14-presentation.pdf) ( [condensed version](https://plancomps.csle.cs.rhul.ac.uk/files/2013/10/modularity14-condensed.pdf) )**
-- **[Appendix – Semantic translation to funcons of ](https://plancomps.csle.cs.rhul.ac.uk/files/2014/04/MV2014.pdf)[Caml Light](http://caml.inria.fr/caml-light/)**
-- **[Full specification ](https://plancomps.csle.cs.rhul.ac.uk/files/2013/10/caml-light.zip)**of the Caml Light semantic specification
+- **[Authors’ version of the paper](/files/2014/04/Mod14CMT.pdf)**
+- **[Presentation](/files/2013/10/modularity14-presentation.pdf) ( [condensed version](/files/2013/10/modularity14-condensed.pdf) )**
+- **[Appendix – Semantic translation to funcons of ](/files/2014/04/MV2014.pdf)[Caml Light](http://caml.inria.fr/caml-light/)**
+- **[Full specification ](/files/2013/10/caml-light.zip)**of the Caml Light semantic specification

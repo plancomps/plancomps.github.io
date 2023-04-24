@@ -18,9 +18,9 @@ In Transactions on Aspect-Oriented Software Development XII, pages 132 – 179, 
 
 ## Accompanying material
 
-- **[Authors’ version of the paper](https://plancomps.csle.cs.rhul.ac.uk/files/2015/03/reusable-semantic-components.pdf)**. The final publication is available at [Springer](http://dx.doi.org/10.1007/978-3-662-46734-3_4).
+- **[Authors’ version of the paper](/files/2015/03/reusable-semantic-components.pdf)**. The final publication is available at [Springer](http://dx.doi.org/10.1007/978-3-662-46734-3_4).
 
-- A [ZIP archive ](https://plancomps.csle.cs.rhul.ac.uk/files/2015/02/PLCS-caml-light.zip) containing:
+- A [ZIP archive ](/files/2015/02/PLCS-caml-light.zip) containing:
 
   - the full specification of Caml Light using funcons;
   - Caml Light test programs, together with funcon terms generated from them;

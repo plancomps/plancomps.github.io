@@ -26,7 +26,7 @@ nav_exclude: false
 - *[Imperative Polymorphism by Store-Based Types as Abstract Interpretations](pepm2015)*.
   Casper Bach Poulsen, Peter D. Mosses and Paolo Torrini.
   PEPM 2015.
-- Modular grammar specification.
+- *Modular grammar specification*.
   Adrian Johnstone, Elizabeth Scott and Mark van den Brand.
   Sci. Comput. Program. 87: 23–43, 2014.
 - *[Reusable Components of Semantic Specifications](churchill2014)*.

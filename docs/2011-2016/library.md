@@ -5,7 +5,7 @@ parent: PLanCompS 2011–2016
 
 # Semantic descriptions library
 
-[![Screen Shot 2014-08-19 at 09.55.00](https://plancomps.csle.cs.rhul.ac.uk/files/2014/08/Screen-Shot-2014-08-19-at-09.55.00-300x212.png)](https://plancomps.csle.cs.rhul.ac.uk/files/2014/08/Screen-Shot-2014-08-19-at-09.55.00.png)
+[![Screen Shot 2014-08-19 at 09.55.00](/files/2014/08/Screen-Shot-2014-08-19-at-09.55.00-300x212.png)](/files/2014/08/Screen-Shot-2014-08-19-at-09.55.00.png)
 
 One of the PLanCompS goals (as a separate work package), involves obtaining, digitising, analysing and indexing existing language specifications, for inclusion in a digital library. The main contributor of this work is [Cliff Jones]( http://homepages.cs.ncl.ac.uk/cliff.jones/). He worked with the IBM Vienna group on the operational semantics (VDL) description of programming languages in the late 1960s; on a second spell in Vienna he played a major part in the development of their denotational description method (VDM). He is co-editor or single author of all of the early books on VDM.
 

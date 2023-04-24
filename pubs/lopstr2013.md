@@ -18,5 +18,5 @@ Presented at [LOPSTR 2013](https://www.utdallas.edu/~gupta/lopstr/).
 
 ## Accompanying material
 
-- [Authors’ version of the paper](https://plancomps.csle.cs.rhul.ac.uk/files/2015/01/lopstr13.pdf)
-- [Benchmarks and generated Prolog prototype interpreters](https://plancomps.csle.cs.rhul.ac.uk/files/2015/01/lopstr13_benchmarks.zip)
+- [Authors’ version of the paper](/files/2015/01/lopstr13.pdf)
+- [Benchmarks and generated Prolog prototype interpreters](/files/2015/01/lopstr13_benchmarks.zip)
