@@ -1,0 +1,193 @@
+<PRE>
+<i>directive</i>:
+      <font color="blue"><code>#</code></font> <font color="blue"><code>open</code></font> <i>string-literal</i>
+   |  <font color="blue"><code>#</code></font> <font color="blue"><code>close</code></font> <i>string-literal</i>
+   |  <font color="blue"><code>#</code></font> <i>ident</i> <i>string-literal</i></PRE>
+<PRE>
+<i>implementation</i>:
+      <i>{</i><i>impl-phrase</i> <font color="blue"><code>;;</code></font><i>}</i>
+
+<i>impl-phrase</i>:
+      <i>expr</i>
+   |  <i>value-definition</i>
+   |  <i>type-definition</i>
+   |  <i>exception-definition</i>
+   |  <i>directive</i>
+
+<i>value-definition</i>:
+      <font color="blue"><code>let</code></font> <i>[</i><font color="blue"><code>rec</code></font><i>]</i> <i>let-binding</i> <i>{</i><font color="blue"><code>and</code></font> <i>let-binding</i><i>}</i></PRE>
+<PRE>
+<i>interface</i>:
+      <i>{</i><i>intf-phrase</i> <font color="blue"><code>;;</code></font><i>}</i>
+
+<i>intf-phrase</i>:
+      <i>value-declaration</i>
+   |  <i>type-definition</i>
+   |  <i>exception-definition</i>
+   |  <i>directive</i>
+
+<i>value-declaration</i>:
+      <font color="blue"><code>value</code></font> <i>ident</i> <font color="blue"><code>:</code></font> <i>typexpr</i> <i>{</i><font color="blue"><code>and</code></font> <i>ident</i> <font color="blue"><code>:</code></font> <i>typexpr</i><i>}</i></PRE>
+<PRE>
+<i>ident</i>:
+      <i>letter</i> <i>{</i><i>letter</i> | <font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font> | <font color="blue"><code>_</code></font><i>} [<font color="blue">'</font>] </i>
+
+<i>letter</i>:
+      <font color="blue"><code>A</code></font>...<font color="blue"><code>Z</code></font> | <font color="blue"><code>a</code></font>...<font color="blue"><code>z</code></font></PRE>
+<PRE>
+<i>integer-literal</i>:
+      <i>[</i><font color="blue"><code>-</code></font><i>]</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>}+</i>
+   |  <i>[</i><font color="blue"><code>-</code></font><i>]</i> <i>(</i><font color="blue"><code>0x</code></font> | <font color="blue"><code>0X</code></font><i>)</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font> | <font color="blue"><code>A</code></font>...<font color="blue"><code>F</code></font> | <font color="blue"><code>a</code></font>...<font color="blue"><code>f</code></font><i>}+</i>
+   |  <i>[</i><font color="blue"><code>-</code></font><i>]</i> <i>(</i><font color="blue"><code>0o</code></font> | <font color="blue"><code>0O</code></font><i>)</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>7</code></font><i>}+</i>
+   |  <i>[</i><font color="blue"><code>-</code></font><i>]</i> <i>(</i><font color="blue"><code>0b</code></font> | <font color="blue"><code>0B</code></font><i>)</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>1</code></font><i>}+</i></PRE>
+<PRE>
+<i>float-literal</i>:
+      <i>[</i><font color="blue"><code>-</code></font><i>]</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>}+</i> <i>[</i><font color="blue"><code>.</code></font> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>}</i><i>]</i> <i>[</i><i>(</i><font color="blue"><code>e</code></font> | <font color="blue"><code>E</code></font><i>)</i> <i>[</i><font color="blue"><code>+</code></font> | <font color="blue"><code>-</code></font><i>]</i> <i>{</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>}+</i><i>]</i></PRE>
+<PRE>
+<i>char-literal</i>:
+      <font color="blue"><code>`</code></font> <i>regular-char</i> <font color="blue"><code>`</code></font>
+   |  <font color="blue"><code>`</code></font> <font color="blue"><code>\</code></font> <i>(</i><font color="blue"><code>\</code></font> | <font color="blue"><code>`</code></font> | <font color="blue"><code>n</code></font> | <font color="blue"><code>t</code></font> | <font color="blue"><code>b</code></font> | <font color="blue"><code>r</code></font><i>)</i> <font color="blue"><code>`</code></font>
+   |  <font color="blue"><code>`</code></font> <font color="blue"><code>\</code></font> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i> <font color="blue"><code>`</code></font></PRE>
+<PRE>
+<i>string-literal</i>:
+      <font color="blue"><code>"</code></font> <i>{</i><i>string-character</i><i>}</i> <font color="blue"><code>"</code></font>
+
+<i>string-character</i>:
+      <i>regular-char</i>
+   |  <font color="blue"><code>\</code></font> <i>(</i><font color="blue"><code>\</code></font> | <font color="blue"><code>"</code></font> | <font color="blue"><code>n</code></font> | <font color="blue"><code>t</code></font> | <font color="blue"><code>b</code></font> | <font color="blue"><code>r</code></font><i>)</i>
+   |  <font color="blue"><code>\</code></font> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i> <i>(</i><font color="blue"><code>0</code></font>...<font color="blue"><code>9</code></font><i>)</i></PRE>
+<PRE>
+<i>global-name</i>:
+      <i>ident</i>
+   |  <i>ident</i> <font color="blue"><code>__</code></font> <i>ident</i></PRE>
+<PRE>
+<i>variable</i>:
+      <i>global-name</i>
+   |  <font color="blue"><code>prefix</code></font> <i>operator-name</i>
+
+<i>operator-name</i>:
+      <font color="blue"><code>+</code></font> | <font color="blue"><code>-</code></font> | <font color="blue"><code>*</code></font> | <font color="blue"><code>/</code></font> |  <font color="blue"><code>**</code></font> | <font color="blue"><code>mod</code></font> | <font color="blue"><code>+.</code></font> | <font color="blue"><code>-.</code></font> | <font color="blue"><code>*.</code></font> | <font color="blue"><code>/.</code></font>
+   |  <font color="blue"><code>@</code></font> | <font color="blue"><code>^</code></font> |  <font color="blue"><code>:=</code></font> | <font color="blue"><code>=</code></font> | <font color="blue"><code>&lt;&gt;</code></font> | <font color="blue"><code>==</code></font> | <font color="blue"><code>!=</code></font> | <font color="blue"><code>!</code></font>
+   |  <font color="blue"><code>&lt;</code></font> | <font color="blue"><code>&lt;=</code></font> | <font color="blue"><code>&gt;</code></font> | <font color="blue"><code>&lt;=</code></font> | <font color="blue"><code>&lt;.</code></font> | <font color="blue"><code>&lt;=.</code></font> | <font color="blue"><code>&gt;.</code></font> | <font color="blue"><code>&lt;=.</code></font>
+
+<i>cconstr</i>:
+      <i>global-name</i>
+   |  <font color="blue"><code>[]</code></font>
+   |  <font color="blue"><code>()</code></font>
+
+<i>ncconstr</i>:
+      <i>global-name</i>
+   |  <font color="blue"><code>prefix</code></font> <font color="blue"><code>::</code></font>
+
+<i>typeconstr</i>:
+      <i>global-name</i>
+
+<i>label</i>:
+      <i>global-name</i></PRE>
+<PRE>
+<i>typexpr</i>:
+      <font color="blue"><code>'</code></font> <i>ident</i>
+   |  <font color="blue"><code>(</code></font> <i>typexpr</i> <font color="blue"><code>)</code></font>
+   |  <i>typexpr</i> <font color="blue"><code>-&gt;</code></font> <i>typexpr</i>
+   |  <i>typexpr</i> <i>{</i><font color="blue"><code>*</code></font> <i>typexpr</i><i>}+</i>
+   |  <i>typeconstr</i>
+   |  <i>typexpr</i> <i>typeconstr</i>
+   |  <font color="blue"><code>(</code></font> <i>typexpr</i> <i>{</i><font color="blue"><code>,</code></font> <i>typexpr</i><i>}</i> <font color="blue"><code>)</code></font> <i>typeconstr</i></PRE>
+<PRE>
+<i>constant</i>:
+      <i>integer-literal</i>
+   |  <i>float-literal</i>
+   |  <i>char-literal</i>
+   |  <i>string-literal</i>
+   |  <i>cconstr</i></PRE>
+<PRE>
+<i>pattern</i>:
+      <i>ident</i>
+   |  <font color="blue"><code>_</code></font>
+   |  <i>pattern</i> <font color="blue"><code>as</code></font> <i>ident</i>
+   |  <font color="blue"><code>(</code></font> <i>pattern</i> <font color="blue"><code>)</code></font>
+   |  <font color="blue"><code>(</code></font> <i>pattern</i> <font color="blue"><code>:</code></font> <i>typexpr</i> <font color="blue"><code>)</code></font>
+   |  <i>pattern</i> <font color="blue"><code>|</code></font> <i>pattern</i>
+   |  <i>constant</i>
+   |  <i>ncconstr</i> <i>pattern</i>
+   |  <i>pattern</i> <font color="blue"><code>,</code></font> <i>pattern</i> <i>{</i><font color="blue"><code>,</code></font> <i>pattern</i><i>}</i>
+   |  <font color="blue"><code>{</code></font> <i>label</i> <font color="blue"><code>=</code></font> <i>pattern</i> <i>{</i><font color="blue"><code>;</code></font> <i>label</i> <font color="blue"><code>=</code></font> <i>pattern</i><i>}</i> <font color="blue"><code>}</code></font>
+   |  <font color="blue"><code>[</code></font> <font color="blue"><code>]</code></font>
+   |  <font color="blue"><code>[</code></font> <i>pattern</i> <i>{</i><font color="blue"><code>;</code></font> <i>pattern</i><i>}</i> <font color="blue"><code>]</code></font>
+   |  <i>pattern</i> <font color="blue"><code>::</code></font> <i>pattern</i></PRE>
+<PRE>
+<i>expr</i>:
+      <i>ident</i>
+   |  <i>variable</i>
+   |  <i>constant</i>
+   |  <font color="blue"><code>(</code></font> <i>expr</i> <font color="blue"><code>)</code></font>
+   |  <font color="blue"><code>begin</code></font> <i>expr</i> <font color="blue"><code>end</code></font>
+   |  <font color="blue"><code>(</code></font> <i>expr</i> <font color="blue"><code>:</code></font> <i>typexpr</i> <font color="blue"><code>)</code></font>
+   |  <i>expr</i> <font color="blue"><code>,</code></font> <i>expr</i> <i>{</i><font color="blue"><code>,</code></font> <i>expr</i><i>}</i>
+   |  <i>ncconstr</i> <i>expr</i>
+   |  <i>expr</i> <font color="blue"><code>::</code></font> <i>expr</i>
+   |  <font color="blue"><code>[</code></font> <i>expr</i> <i>{</i><font color="blue"><code>;</code></font> <i>expr</i><i>}</i> <font color="blue"><code>]</code></font>
+   |  <font color="blue"><code>[|</code></font>( <i>expr</i> <i>{</i><font color="blue"><code>;</code></font> <i>expr</i><i>}</i>)? <font color="blue"><code>|]</code></font>
+   |  <font color="blue"><code>{</code></font> <i>label</i> <font color="blue"><code>=</code></font> <i>expr</i> <i>{</i><font color="blue"><code>;</code></font> <i>label</i> <font color="blue"><code>=</code></font> <i>expr</i><i>}</i> <font color="blue"><code>}</code></font>
+   |  <i>expr</i> <i>expr</i>
+   |  <i>prefix-op</i> <i>expr</i>
+   |  <i>expr</i> <i>infix-op</i> <i>expr</i>
+   |  <i>expr</i> <font color="blue"><code>.</code></font> <i>label</i>
+   |  <i>expr</i> <font color="blue"><code>.</code></font> <i>label</i> <font color="blue"><code>&lt;-</code></font> <i>expr</i>
+   |  <i>expr</i> <font color="blue"><code>.(</code></font> <i>expr</i> <font color="blue"><code>)</code></font>
+   |  <i>expr</i> <font color="blue"><code>.(</code></font> <i>expr</i> <font color="blue"><code>)</code></font> <font color="blue"><code>&lt;-</code></font> <i>expr</i>
+   |  <i>expr</i> <font color="blue"><code>&amp;</code></font> <i>expr</i>
+   |  <i>expr</i> <font color="blue"><code>or</code></font> <i>expr</i>
+   |  <font color="blue"><code>if</code></font> <i>expr</i> <font color="blue"><code>then</code></font> <i>expr</i> <i>[</i><font color="blue"><code>else</code></font> <i>expr</i><i>]</i>
+   |  <font color="blue"><code>while</code></font> <i>expr</i> <font color="blue"><code>do</code></font> <i>expr</i> <font color="blue"><code>done</code></font>
+   |  <font color="blue"><code>for</code></font> <i>ident</i> <font color="blue"><code>=</code></font> <i>expr</i> <i>(</i><font color="blue"><code>to</code></font> | <font color="blue"><code>downto</code></font><i>)</i> <i>expr</i> <font color="blue"><code>do</code></font> <i>expr</i> <font color="blue"><code>done</code></font>
+   |  <i>expr</i> <font color="blue"><code>;</code></font> <i>expr</i>
+   |  <font color="blue"><code>match</code></font> <i>expr</i> <font color="blue"><code>with</code></font> <i>simple-matching</i>
+   |  <font color="blue"><code>fun</code></font> <i>multiple-matching</i>
+   |  <font color="blue"><code>function</code></font> <i>simple-matching</i>
+   |  <font color="blue"><code>try</code></font> <i>expr</i> <font color="blue"><code>with</code></font> <i>simple-matching</i>
+   |  <font color="blue"><code>let</code></font> <i>[</i><font color="blue"><code>rec</code></font><i>]</i> <i>let-binding</i> <i>{</i><font color="blue"><code>and</code></font> <i>let-binding</i><i>}</i> <font color="blue"><code>in</code></font> <i>expr</i>
+
+<i>simple-matching</i>:
+      <i>pattern</i> <font color="blue"><code>-&gt;</code></font> <i>expr</i> <i>{</i><font color="blue"><code>|</code></font> <i>pattern</i> <font color="blue"><code>-&gt;</code></font> <i>expr</i><i>}</i>
+
+<i>multiple-matching</i>:
+      <i>pattern-list</i> <font color="blue"><code>-&gt;</code></font> <i>expr</i> <i>{</i><font color="blue"><code>|</code></font> <i>pattern-list</i> <font color="blue"><code>-&gt;</code></font> <i>expr</i><i>}</i>
+
+<i>pattern-list</i>:
+      <i>pattern</i> <i>{</i><i>pattern</i><i>}</i>
+
+<i>let-binding</i>:
+      <i>pattern</i> <font color="blue"><code>=</code></font> <i>expr</i>
+   |  <i>variable</i> <i>pattern-list</i> <font color="blue"><code>=</code></font> <i>expr</i>
+
+<i>prefix-op</i>:
+      <font color="blue"><code>-</code></font> | <font color="blue"><code>-.</code></font> | <font color="blue"><code>!</code></font>
+
+<i>infix-op</i>:
+      <font color="blue"><code>+</code></font> | <font color="blue"><code>-</code></font> | <font color="blue"><code>*</code></font> | <font color="blue"><code>/</code></font> | <font color="blue"><code>mod</code></font> | <font color="blue"><code>+.</code></font> | <font color="blue"><code>-.</code></font> | <font color="blue"><code>*.</code></font> | <font color="blue"><code>/.</code></font> | <font color="blue"><code>**</code></font> | <font color="blue"><code>@</code></font> | <font color="blue"><code>^</code></font> | <font color="blue"><code>!</code></font> | <font color="blue"><code>:=</code></font>
+   |  <font color="blue"><code>=</code></font> | <font color="blue"><code>&lt;&gt;</code></font> | <font color="blue"><code>==</code></font> | <font color="blue"><code>!=</code></font> | <font color="blue"><code>&lt;</code></font> | <font color="blue"><code>&lt;=</code></font> | <font color="blue"><code>&gt;</code></font> | <font color="blue"><code>&gt;=</code></font> | <font color="blue"><code>&lt;.</code></font> | <font color="blue"><code>&lt;=.</code></font> | <font color="blue"><code>&gt;.</code></font> | <font color="blue"><code>&gt;=.</code></font></PRE>
+<PRE>
+<i>type-definition</i>:
+      <font color="blue"><code>type</code></font> <i>typedef</i> <i>{</i><font color="blue"><code>and</code></font> <i>typedef</i><i>}</i>
+
+<i>typedef</i>:
+      <i>[ type-params ]</i> <i>ident</i> <font color="blue"><code>=</code></font> <i>constr-decl</i> <i>{</i><font color="blue"><code>|</code></font> <i>constr-decl</i><i>}</i>
+   |  <i>[ type-params ]</i> <i>ident</i> <font color="blue"><code>=</code></font> <font color="blue"><code>{</code></font> <i>label-decl</i> <i>{</i><font color="blue"><code>;</code></font> <i>label-decl</i><i>}</i> <font color="blue"><code>}</code></font>
+   |  <i>[ type-params ]</i> <i>ident</i> <font color="blue"><code>==</code></font> <i>typexpr</i>
+   |  <i>[ type-params ]</i> <i>ident</i>
+
+<i>type-params </i>:
+     <font color="blue"><code>'</code></font> <i>ident</i>
+   |  <font color="blue"><code>(</code></font> <font color="blue"><code>'</code></font> <i>ident</i> <i>{</i><font color="blue"><code>,</code></font> <font color="blue"><code>'</code></font> <i>ident</i><i>}</i> <font color="blue"><code>)</code></font>
+
+<i>constr-decl</i>:
+      <i>ident</i>
+   |  <i>ident</i> <font color="blue"><code>of</code></font> <i>typexpr</i>
+
+<i>label-decl</i>:
+      <i>ident</i> <font color="blue"><code>:</code></font> <i>typexpr</i>
+   |  <font color="blue"><code>mutable</code></font> <i>ident</i> <font color="blue"><code>:</code></font> <i>typexpr</i></PRE>
+<PRE>
+<i>exception-definition</i>:
+      <font color="blue"><code>exception</code></font> <i>constr-decl</i> <i>{</i><font color="blue"><code>and</code></font> <i>constr-decl</i><i>}</i></PRE>

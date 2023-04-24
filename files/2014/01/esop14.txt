@@ -1,0 +1,7 @@
+@INPROCEEDINGS{BachPoulsenMosses2014derivingpretty,
+  author = {Bach Poulsen, Casper and Mosses, Peter D.},
+  title = {Deriving Pretty-Big-Step Semantics from Small-Step Semantics},
+  booktitle = {ESOP'14},
+  year = {2014},
+  series = {LNCS}
+}

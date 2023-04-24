@@ -1,0 +1,357 @@
+(* Bisimularity in Open Systems (e.g. MSOS) *)
+
+Axiom Kaxiom: forall A (P : A -> Type) (x : A) (c d : P x), existT P x c = existT P x d -> c = d.
+
+Ltac invcs H := inversion H; clear H;
+  repeat (match goal with [ H : existT _ _ _ = existT _ _ _ |- _ ] => apply Kaxiom in H end); subst.
+
+(* Labels *)
+
+Variable lvar : Set.
+
+Parameter lcomponent ldata : Set.
+
+Inductive label :=
+    | unobs : label
+    | entry : lcomponent -> ldata -> label -> label
+    | l_var : lvar -> label
+    | etcetera : label.
+
+(* Sorts *)
+
+Variable etc_sort : Set.
+
+Inductive sort :=
+  | com : sort
+  | so_other : etc_sort -> sort. 
+
+Variable etc_state : sort -> Set.
+Variable etc_final : forall s, etc_state (so_other s) -> Prop.
+
+Inductive state : sort -> Set :=
+  | skip : state com
+  | seq : state com -> state com -> state com
+  | or : state com -> state com -> state com
+  | par : state com -> state com -> state com
+  | st_other : forall s, etc_state s -> state s.
+
+Inductive final : forall s, state s -> Prop :=
+  | f_skip : final com skip
+  | f_other : forall s t, etc_final s t -> final (so_other s) (st_other (so_other s) t).
+
+Implicit Arguments final[[s]].
+
+Variable etc_rewrite : forall s, etc_state s -> state s -> Prop.
+
+Inductive rewrite_core : forall s , state s -> state s -> Prop :=
+   | le_seq : forall s, rewrite_core com (seq skip s) s
+   | le_par : rewrite_core com (par skip skip) skip
+   | le_oth : forall s t r, etc_rewrite s t r -> rewrite_core s (st_other s t) r.
+
+Inductive rewrite_cong : forall s , state s -> state s -> Prop :=
+   | co_seq : forall s s1 t t1, rewrite_cong com s s1 -> rewrite_cong com t t1
+             -> rewrite_cong com (seq s t) (seq s1 t1)
+   | co_par : forall s s1 t t1, rewrite_cong com s s1 -> rewrite_cong com t t1
+             -> rewrite_cong com (par s t) (par s1 t1)
+   | co_or : forall s s1 t t1, rewrite_cong com s s1 -> rewrite_cong com t t1
+             -> rewrite_cong com (or s t) (or s1 t1)
+   | co_rewrite : forall s t r, rewrite_core s t r -> rewrite_cong s t r
+   | co_ref : forall s t, rewrite_cong s t t.
+
+Inductive rewrite (s : sort) : state s -> state s -> Prop :=
+   | rt_rewrite : forall t r, rewrite_cong s t r -> rewrite s t r
+   | rt_trans : forall t r u , rewrite_cong s t r -> rewrite s r u -> rewrite s t u.
+
+Implicit Arguments rewrite[[s]].
+Implicit Arguments rewrite_cong[[s]].
+Implicit Arguments rewrite_core[[s]].
+
+Proposition rewrite_trans : forall s (t : state s) r u , rewrite t r -> rewrite r u -> rewrite t u.
+Proof. intros. induction H. eapply rt_trans. eauto. auto. auto.
+    eapply rt_trans. eauto. apply IHrewrite. auto. Qed.
+
+Proposition rt_ref : forall s (t: state s) , rewrite t t.
+Proof. intros. constructor. apply co_ref. Qed.
+
+Proposition rewrite_co_seq' : forall s s1 t t1, rewrite s s1 -> rewrite_cong t t1 -> rewrite (seq s t) (seq s1 t1).
+Proof. intros. induction H. constructor. apply co_seq; auto.
+       eapply rewrite_trans. constructor. apply co_seq. eauto. apply co_ref. auto. Qed.
+
+Proposition rewrite_co_seq : forall s s1 t t1, rewrite s s1 -> rewrite t t1 -> rewrite (seq s t) (seq s1 t1).
+Proof. intros. induction H0. eapply rewrite_co_seq'; auto.
+     eapply rewrite_trans. eapply rewrite_co_seq'. apply rt_ref. eauto. auto. Qed. 
+
+Variable etc_reduce : forall s, etc_state s -> label -> state s -> Prop.
+
+Ltac ltrans := eapply rewrite_trans.
+Ltac ltrans2 := eapply rewrite_trans;[ltrans|].
+Ltac ltrans3 := eapply rewrite_trans;[ltrans2|].
+
+Ltac lcong1 := match goal with [ H : _ |- rewrite (seq _ _) _ ] => eapply rewrite_co_seq end.
+Ltac lcong := repeat lcong1.
+Ltac lconga := lcong; first[eassumption|apply rt_ref].
+
+Ltac cons := first [ apply co_rewrite | econstructor ].
+Ltac cons3 := do 3 cons.
+
+Inductive reduce' : forall s, state s -> label -> state s -> Prop :=
+   | re_seq : forall s l s' t , reduce com s l s' -> reduce' com (seq s t) l (seq s' t)
+   | re_or1 : forall s t, reduce' com (or s t) unobs s
+   | re_or2 : forall s t, reduce' com (or s t) unobs t
+   | re_par1 : forall s t s' l, reduce com s l s' -> reduce' com (par s t) l (par s' t)
+   | re_par2 : forall s t t' l, reduce com t l t' -> reduce' com (par s t) l (par s t')
+   | re_other : forall s s1 l s2, etc_reduce s s1 l s2 -> reduce' s (st_other s s1) l s2
+with reduce : forall s, state s -> label -> state s -> Prop :=
+   | re_rewrite : forall s t r u l, rewrite t r -> reduce' s r l u -> reduce s t l u.
+
+Implicit Arguments reduce[[s]].
+Implicit Arguments reduce'[[s]].
+
+Ltac rednow := econstructor; [eapply rt_ref | ].
+
+Proposition red_trans : forall s (t : state s) r u l, rewrite t r -> reduce r l u -> reduce t l u.
+Proof. intros. destruct H0. econstructor. eapply rewrite_trans; eauto. eauto. Qed.
+
+Ltac rtrans := eapply red_trans.
+Ltac rtrans2 := eapply red_trans;[rtrans|].
+
+(* Strong bisimulation *)
+
+Record bisim {S : sort} (s1 s2 : state S) := mk_bisim {
+    rel : state S -> state S -> Prop;
+    bisim1 : forall s t s' l, rel s t -> reduce s l s' ->
+      exists t' , rel s' t' /\ reduce t l t' ;
+    bisim2 : forall s t t' l, rel s t -> reduce t l t' ->
+      exists s' , rel s' t' /\ reduce s l s' ;
+    rewrite1: forall s t s', rel s t -> rewrite s s' -> exists t', rel s' t' /\ rewrite t t';
+    rewrite2: forall s t t', rel s t -> rewrite t t' -> exists s', rel s' t' /\ rewrite s s';
+    final1 : forall s t , rel s t -> final s -> rewrite t s;
+    final2 : forall s t , rel s t -> final t -> rewrite s t;
+    isin : rel s1 s2 }.
+
+Implicit Arguments mk_bisim[[S]].
+
+Ltac invcs_red := match goal with [ H : reduce _ _ _ |- _ ] => invcs H end.
+Ltac inver_red := match goal with [ H : reduce _ _ _ |- _ ] => inversion H end.
+Ltac inver_fin := match goal with [ H : final _ |- _ ] => inversion H end.
+Ltac invcs_fin := match goal with [ H : final _ |- _ ] => invcs H end.
+Ltac invcs_rewrite := match goal with [ H : rewrite _ _ |- _ ] => invcs H end.
+Ltac inver_rewrite := match goal with [ H : rewrite _ _ |- _ ] => inversion H end.
+Ltac invcs_lesn := match goal with [ H : rewrite_cong _ _ |- _ ] => invcs H end.
+Ltac inver_lesn := match goal with [ H : rewrite_cong _ _ |- _ ] => inversion H end.
+Ltac invcs_lesc := match goal with [ H : rewrite_core _ _ |- _ ] => invcs H end.
+Ltac inver_lesc := match goal with [ H : rewrite_core _ _ |- _ ] => inversion H end.
+Ltac invcs_red' := match goal with [ H : reduce' _ _ _ |- _ ] => invcs H end.
+Ltac inver_red' := match goal with [ H : reduce' _ _ _ |- _ ] => inversion H end.
+
+
+Ltac crush := repeat (match goal with [ H : _ /\ _ |- _ ] => destruct H |
+                                  [ H : _ \/ _ |- _ ] => destruct H |
+                                  [ H : exists _ , _ |- _ ] => destruct H |
+                                  [ |- forall _ , _ ] => intros |
+                                  [ |- not _ ] => unfold not |
+                                  [ H : False |- _ ] => contradiction |
+                                  [ H : _ |- _ /\ _ ] => split |
+                                  [ H : _ = _ |- _ ] => subst
+ end); auto.
+
+(* Lemmas *)
+
+Proposition rewrite_seq: forall t s r, rewrite (seq r t) s ->
+         (exists r' , exists t', s = seq r' t' /\ rewrite r r' /\ rewrite t t') \/
+         (rewrite r skip /\ rewrite t s).
+Proof.  intros. remember (seq r t). generalize dependent t. generalize dependent r. induction H.
+        crush. invcs_lesn. left.
+              exists s1. exists t1. split. auto. split; constructor; auto.
+         invcs_lesc. right. split. apply rt_ref. apply rt_ref.
+        crush. left. exists r0. exists t0. split. auto. split; apply rt_ref. 
+        crush. invcs_lesn.
+        assert (seq s1 t1 = seq s1 t1). auto. apply IHrewrite in H.
+        crush. left. exists x. exists x0. split. auto. split; eapply rt_trans; eauto.
+          right. split; eapply rt_trans; eauto.            
+        invcs_lesc. right. split. apply rt_ref. auto.
+        symmetry in H4. apply IHrewrite in H4.
+        crush. left. exists x. exists x0. split. auto. split. auto. auto. Qed.
+
+Proposition skip_no_rewrite: forall s , rewrite skip s -> s = skip.
+Proof. crush. remember skip. induction H. crush. invcs_lesn. invcs_lesc. auto.
+     crush. invcs_lesn. invcs_lesc. remember H4. clear Heqe. symmetry in H4.
+       apply IHrewrite in H4. subst. auto. Qed.
+
+Proposition skip_no_reduce: forall s l, ~ reduce skip l s.
+Proof. unfold not. intros. invcs_red. apply skip_no_rewrite in H3. subst. inver_red'. Qed.
+
+Proposition rewrite_seq_skip: forall t s, rewrite (seq skip t) s ->
+         (exists t', s = seq skip t' /\ rewrite t t') \/ rewrite t s.
+Proof. intros. apply rewrite_seq in H. crush. apply skip_no_rewrite in H0. subst.
+         left. exists x0. split. auto. auto. Qed.
+
+Ltac crushp := crush; repeat (match goal with
+                     [ H : reduce' (seq _ _) _ _ |- _ ] => invcs H |
+                     [ H : reduce (seq _ _) _ _ |- _ ] => invcs H |
+                     [ H : rewrite (seq _ _) _ |- _ ] => apply rewrite_seq in H |
+                     [ H : reduce skip _ _ |- _ ] => apply skip_no_reduce in H |
+                     [ H : rewrite skip _ |- _ ] => apply skip_no_rewrite in H
+end; crush).
+
+(* Example property 2 - skip ; C = C *)
+
+Inductive seq_lunit_rel : state com -> state com -> Prop :=
+    | slu_refl : forall c , seq_lunit_rel c c
+    | slu_main : forall c , seq_lunit_rel (seq skip c) c.
+
+Hint Resolve slu_refl.
+Hint Resolve slu_main.
+
+Proposition seq_unit_l : forall C , bisim (seq skip C) C.
+Proof. intro. apply (mk_bisim _ _ seq_lunit_rel).
+  (* bisim1 *) intros. invcs H.
+     (* refl *) exists s'. crush.
+     (* main *) crushp. exists s'. crush. econstructor.
+              eauto. auto.
+  (* bisim2 *) intros. invcs H.
+     (* refl *) exists t'. crush.
+     (* main *) invcs_red. exists t'. crush. econstructor.
+            ltrans. constructor. cons. econstructor. eauto.
+            auto.
+  (* rewrite1 *) intros. invcs H. exists s'. crush.
+            crushp. exists x0. crush.
+            exists s'. crush.
+  (* rewrite2 *) intros. invcs H. exists t'. crush.
+            exists t'. crushp. ltrans.
+               constructor. cons. constructor. auto.
+  (* final1 *) intros. invcs H. lconga. inver_fin.
+  (* final2 *) intros. invcs H. lconga. invcs_fin. constructor. constructor. constructor.
+  (* in relation *) constructor. Qed.
+
+(* Example property 3 - C ; skip = C *)
+
+Inductive seq_runit_rel : state com -> state com -> Prop :=
+    | sru_refl : forall c , seq_runit_rel c c
+    | sru_main : forall c , seq_runit_rel (seq c skip) c.
+
+Hint Resolve sru_refl.
+Hint Resolve sru_main.
+
+Proposition seq_unit_r : forall C, bisim (seq C skip) C.
+Proof. intro. apply (mk_bisim _ _ seq_runit_rel).
+  (* wkbisim1 *) intros. invcs H.
+     (* refl *) exists s'. crush.
+     (* main *) crushp. 
+        exists s'0. crush. eapply red_trans. eauto. auto.
+        inver_red'.
+  (* wkbisim1 *) intros. invcs H.
+     (* refl *) exists t'. crush.
+     (* main *) exists (seq t' skip). crush. econstructor. apply rt_ref. apply re_seq. eauto.
+  (* rewrite1 *) intros. invcs H. exists s'. crush.
+            crushp. exists x. crush.
+            exists skip. crush.
+  (* rewrite2 *) intros. invcs H. exists t'. crush.
+            exists (seq t' skip). crush. lconga.
+  (* wkfinal1 *) intros. invcs H. lconga. inver_fin.
+  (* wkfinal2 *) intros. invcs H. lconga. invcs_fin. constructor. constructor. constructor.
+  (* in relation *) constructor. Qed. 
+
+(* Example property 1 - C1 ; (C2 ; C3) = (C1 ; C2) ; C3 *)
+
+Inductive seq_assoc_rel : state com -> state com -> Prop :=
+    | sa_refl : forall c , seq_assoc_rel c c
+    | sa_main : forall c1 c2 c3 , seq_assoc_rel (seq c1 (seq c2 c3)) (seq (seq c1 c2) c3)
+    | sa_scnd : forall c1 c3 , seq_assoc_rel (seq c1 c3) (seq (seq c1 skip) c3).
+
+Hint Resolve sa_refl sa_main sa_scnd. 
+
+Proposition seq_assoc : forall C1 C2 C3, bisim (seq C1 (seq C2 C3)) (seq (seq C1 C2) C3).
+Proof. intros. apply (mk_bisim _ _ seq_assoc_rel).
+  (* bisim1 *) intros; destruct H.
+    (* reflexivity *) exists s'. crush.
+    (* main *) crushp.
+      (* just a transition in c1 *)
+          exists (seq (seq s'0 x1) x2). crush. cons.
+              lconga.
+              cons. rednow. cons. auto.
+      (* c2 rewrites to skip and so we move to c1; c3, then a transition in c1 *)
+          exists (seq (seq s'0 skip) x0). crush. cons.
+              lconga.
+              cons. rednow. cons. auto.
+      (* c1 rewrites to skip and so we move to c2;c3, then c2 makes a transition *)
+          exists (seq s'0 x0). crush. cons.
+              lconga.
+              cons. rtrans. cons3. auto.
+      (* c1 and c2 rewrite to skip, and c3 makes a transition *)
+          exists s'. crush. cons.
+           ltrans2.
+             lconga.
+             lcong1;[cons; cons; cons|lconga].
+             cons; cons; cons.
+           auto. 
+    (* scnd *) crushp.
+        (* c1 makes a transition *)
+          exists (seq (seq s'0 skip) x0). crush. cons.
+              lconga.
+              cons. rednow. cons. auto.
+        (* c1 rewrites to skip, c3 makes a transition *)
+          exists s'. crush. cons.
+            ltrans2.
+             lconga.
+             lcong1. cons3. lconga.
+             cons3.
+            auto.
+  (* bisim2 *) intros; destruct H.
+     (* reflexivity *) exists t'. crush.
+     (* main *) crushp.
+          (* c1 makes a transition *)
+           exists (seq s'0 (seq x3 x0)). crush. cons.
+              ltrans. lconga. lconga.
+              cons. auto.
+          (* c1 rewrites to skip, rewrite to c2;c3 ; c2 makes a transition *)
+           exists (seq s' x0). crush. cons.
+               ltrans2. 
+                 lconga. lconga.
+                 cons3.
+               cons. rednow. auto.
+          (* c1 rewrites to skip, rewrite to c2;c3 ; c2 makes a transition *)
+            (* but with a different derivation:
+                depending on whether the rewrite happens once
+                 or twice *)
+           exists (seq s' x0). crush. cons.
+                ltrans. lconga. cons3.
+                cons. auto.
+           (* c1 rewrites to skip, c2 rewrites to skip, c3 makes a transition *)
+           inversion H.
+           exists t'. crush. cons.
+                 ltrans2. lconga. cons3. cons3.
+                 auto.
+     (* scnd *) crushp.
+            (* c1 makes a transition *)
+            exists (seq s'0 x0). crush. cons.
+                 ltrans. lconga. lconga.
+                 cons. auto.
+            inver_red'. inversion H.
+            (* c1 rewrites to skip, overall rewrites to seq (skip c3) then c3, c3 makes a transition *)
+            exists t'. crush. cons.
+                 ltrans. lconga. cons3.
+                 auto.
+  (* rewrite1 *) intros. invcs H. exists s'. crush.
+            crushp.
+               exists (seq (seq x x1) x2). crush. lconga.
+               exists (seq (seq x skip) x0). crush. lconga.
+               exists (seq x x0). crush. ltrans. lconga. lcong. cons3. lconga. 
+               exists s'. crush. ltrans2. lconga. lcong1. cons3. lconga. cons3.
+            crushp.
+               exists (seq (seq x skip) x0). crush. lconga.
+               exists s'. crush. ltrans2. lconga. lcong1. cons3. lconga. cons3.
+  (* rewrite2 *) intros. invcs H. exists t'. crush.
+            crushp.
+               exists (seq x1 (seq x2 x0)). crush. lconga.
+               exists (seq x x0). crush. ltrans. lconga. cons3.
+               inversion H.
+               exists t'. crush. ltrans. lconga. ltrans; cons3.
+             crushp.
+                exists (seq x1 x0). crush. lconga. 
+                exists (seq skip x0). crush. lconga.
+                inversion H.
+                exists t'. crush. ltrans. lconga. cons3. 
+  (* wkfinal1 *) intros. invcs H. lconga. inver_fin. inver_fin.
+  (* wkfinal1 *) intros. invcs H. lconga. inver_fin. inver_fin.
+  (* in relation *) cons. Qed.
