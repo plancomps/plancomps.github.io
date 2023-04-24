@@ -1,5 +1,5 @@
 ---
-title: FunKons: Component-Based Semantics in K
+title: FunKons – Component-Based Semantics in K
 ---
 
 # FunKons: Component-Based Semantics in K
