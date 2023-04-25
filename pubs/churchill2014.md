@@ -14,7 +14,7 @@ By Martin Churchill, Peter D. Mosses and Paolo Torrini
 
 Presented at [Modularity’14](https://aosd.net/2014/), 22–25 April 2014, Lugano, Switzerland.
 
-Note: A [revised and extended version](https://plancomps.csle.cs.rhul.ac.uk/taosd2015/) of this paper has since been published in [Transactions on Aspect-Oriented Software Development XII](https://dx.doi.org/10.1007/978-3-662-46734-3_4).
+Note: A [revised and extended version](/pubs/taosd2015/) of this paper has since been published in [Transactions on Aspect-Oriented Software Development XII](https://dx.doi.org/10.1007/978-3-662-46734-3_4).
 
 ## Accompanying material
 
