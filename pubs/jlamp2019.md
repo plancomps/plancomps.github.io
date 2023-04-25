@@ -4,7 +4,7 @@ title: Executable Component-Based Semantics
 
 # Executable Component-Based Semantics
 
-By [L. Thomas van Binsbergen](https://ltvanbinsbergen.nl/publications), [Peter D. Mosses](https://pdmosses.github.io/) and [Neil Sculthorpe](https://neilsculthorpe.com/)
+By [L. Thomas van Binsbergen](https://ltvanbinsbergen.nl/publications), [Peter D. Mosses](https://pdmosses.github.io/) and [Neil Sculthorpe](http://neilsculthorpe.com/)
 
 ## Abstract
 

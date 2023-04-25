@@ -47,7 +47,7 @@ nav_exclude: false
 - *[Generating Specialized Interpreters for Modular Structural Operational Semantics](lopstr2013)*.
   Casper Bach Poulsen and Peter D. Mosses.
   LOPSTR 2013.
-- *[Island Grammar-Based Parsing Using GLL and Tom](https://hal.inria.fr/hal-00722878)*.
+- *[Island Grammar-Based Parsing Using GLL and Tom](https://inria.hal.science/hal-00722878)*.
   Ali Afroozeh, Jean-Christophe Bach, Mark van den Brand, Adrian Johnstone, Maarten Manders, Pierre-Etienne Moreau and Elizabeth Scott.
   SLE 2012: 224–243, 2012.
 - *[Modular Semantics for Transition System Specifications with Negative Premises](churchill2013c)*.

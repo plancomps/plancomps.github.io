@@ -10,7 +10,7 @@ aux_links:
     - https://github.com/plancomps/plancomps.github.io
 nav_external_links:
   - title: CBS-beta
-    url: https://plancomps.github.io/CBS-beta
+    url: https://plancomps.github.io/CBS-beta/
  
 remote_theme: just-the-docs/just-the-docs
 plugins:

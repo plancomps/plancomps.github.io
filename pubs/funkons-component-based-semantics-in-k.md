@@ -12,7 +12,7 @@ by Peter D. Mosses and Ferdinand Vesely
 >
 > The PLanCompS project is developing a framework providing an open-ended collection of reusable components for semantic specification. Each component specifies a single fundamental programming construct, or `funcon’. The semantics of concrete programming language constructs is given by translating them to combinations of funcons. In this paper, we show how this component-based approach can be seamlessly integrated with the K Framework. We give a component-based definition of CinK (a small subset of C++), using K to define its translation to funcons as well as the (dynamic) semantics of the funcons themselves.
 
-Presented at [WRLA 2014](https://users.dsic.upv.es/workshops/wrla2014/).
+Presented at [WRLA 2014](https://elp.webs.upv.es/workshops/wrla2014/).
 Authors’ version of the paper is available [here](/files/2014/03/WRLA2014.pdf).
 
 ## Accompanying material
