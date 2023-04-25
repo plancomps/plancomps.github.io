@@ -12,7 +12,7 @@ By Martin Churchill, Peter D. Mosses and Paolo Torrini
 >
 > In the PLanCompS project, we have developed a component-based approach to semantics. Here, we explain its modularity aspects, and present an illustrative case study. Our approach provides good modularity, facilitates reuse, and supports co-evolution of languages and their formal semantics. It could be particularly useful in connection with domain-specific languages and language-driven software development.
 
-Presented at [Modularity’14](https://aosd.net/2014/conference), 22–25 April 2014, Lugano, Switzerland.
+Presented at [Modularity’14](https://aosd.net/2014/), 22–25 April 2014, Lugano, Switzerland.
 
 Note: A [revised and extended version](https://plancomps.csle.cs.rhul.ac.uk/taosd2015/) of this paper has since been published in [Transactions on Aspect-Oriented Software Development XII](https://dx.doi.org/10.1007/978-3-662-46734-3_4).
 
