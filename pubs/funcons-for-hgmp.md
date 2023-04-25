@@ -6,7 +6,7 @@ title: Funcons for HGMP
 
 The fundamental constructs of homogeneous generative meta-programming
 
-By [L. Thomas van Binsbergen](http://ltvanbinsbergen.nl/publications)
+By [L. Thomas van Binsbergen](https://ltvanbinsbergen.nl/publications)
 
 ## Abstract
 
