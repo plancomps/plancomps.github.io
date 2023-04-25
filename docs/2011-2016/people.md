@@ -10,7 +10,7 @@ parent: PLanCompS 2011–2016
 - [**Peter Mosses**](https://pdmosses.github.io/) ([Department of Computer Science](https://www.swan.ac.uk/compsci/), [Swansea University](https://www.swan.ac.uk/))
 - [**Adrian Johnstone**](https://pure.rhul.ac.uk/portal/en/persons/adrian-johnstone_7cc2e828-2b0f-4cb7-a169-337193b854b8.html) and [**Elizabeth Scott**](https://pure.rhul.ac.uk/portal/en/persons/elizabeth-scott_2b634c08-8249-413d-9654-031aed1f680b.html) ([Department of Computer Science](https://www.rhul.ac.uk/computerscience/), [Royal Holloway, University of London](https://www.rhul.ac.uk/))
 - **[George Buchanan](http://www.georgerbuchanan.com)** ([Centre for HCI Design](hhttps://www.city.ac.uk/research/centres/hcid), [City University London](https://www.city.ac.uk/))
-- [**Cliff Jones**]( https://homepages.cs.ncl.ac.uk/cliff.jones/) ([School of Computing Science](https://www.cs.ncl.ac.uk/), [Newcastle University](https://www.ncl.ac.uk/))
+- [**Cliff Jones**](http://homepages.cs.ncl.ac.uk/cliff.jones/) ([School of Computing Science](https://www.cs.ncl.ac.uk/), [Newcastle University](https://www.ncl.ac.uk/))
 
 *Postdocs:*
 
